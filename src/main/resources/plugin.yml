@@ -1,0 +1,10 @@
+name: ArisTeam
+version: 4.5
+main: me.vennlmao.aristeam.ArisTeam
+api-version: '1.20'
+author: VennLMAO
+depend: [PlaceholderAPI]
+folia-supported: true
+commands:
+  team:
+    aliases: [t]
