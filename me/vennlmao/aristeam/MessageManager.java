@@ -13,28 +13,35 @@ import java.util.regex.Pattern;
 
 public class MessageManager {
     private final ArisTeam plugin;
-    private FileConfiguration cfg;
-    public MessageManager(ArisTeam plugin) { this.plugin = plugin; reload(); }
-    public void reload() { cfg = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "messages.yml")); }
-    public String translate(String s) {
-        if (s == null) return "";
-        Pattern p = Pattern.compile("&#([A-Fa-f0-9]{6})");
-        Matcher m = p.matcher(s);
+    private final Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
+
+    public MessageManager(ArisTeam plugin) { this.plugin = plugin; }
+
+    public String translate(String message) {
+        if (message == null) return "";
+        Matcher matcher = hexPattern.matcher(message);
         StringBuilder sb = new StringBuilder();
-        while (m.find()) {
-            String h = m.group(1);
-            StringBuilder r = new StringBuilder("§x");
-            for (char c : h.toCharArray()) r.append('§').append(c);
-            m.appendReplacement(sb, r.toString());
+        while (matcher.find()) {
+            String color = matcher.group(1);
+            matcher.appendReplacement(sb, ChatColor.of("#" + color).toString());
         }
-        return ChatColor.translateAlternateColorCodes('&', m.appendTail(sb).toString());
+        return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(sb).toString());
     }
-    public void send(Player p, String path, Map<String, String> h) {
-        String t = cfg.getString(path + ".text", "");
-        if (h != null) for (Map.Entry<String, String> e : h.entrySet()) t = t.replace(e.getKey(), e.getValue());
-        String f = translate(t);
-        if (cfg.getBoolean(path + ".chat")) p.sendMessage(translate(cfg.getString("prefix")) + f);
-        if (cfg.getBoolean(path + ".actionbar")) p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(f));
-        if (cfg.getBoolean(path + ".title")) p.sendTitle(f, "", 10, 40, 10);
+
+    public void send(Player p, String path, Map<String, String> placeholders) {
+        FileConfiguration msgCfg = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "messages.yml"));
+        String msg = msgCfg.getString(path + ".text", "");
+        if (placeholders != null) {
+            for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                msg = msg.replace(entry.getKey(), entry.getValue());
+            }
+        }
+        
+        String formatted = translate(msg);
+        String prefix = translate(msgCfg.getString("prefix", ""));
+
+        if (msgCfg.getBoolean(path + ".chat", true)) p.sendMessage(prefix + formatted);
+        if (msgCfg.getBoolean(path + ".actionbar", false)) p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(formatted));
+        if (msgCfg.getBoolean(path + ".title", false)) p.sendTitle(formatted, "", 10, 40, 10);
     }
-              }
+                 }
