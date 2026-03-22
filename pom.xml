@@ -5,8 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.vennlmao</groupId>
     <artifactId>ArisTeam</artifactId>
-    <version>4.5</version>
-    <packaging>jar</packaging>
+    <version>4.2</version>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -24,8 +23,8 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
+            <groupId>dev.folia</groupId>
+            <artifactId>folia-api</artifactId>
             <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -35,15 +34,8 @@
             <version>2.11.3</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.1</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
     <build>
-        <finalName>ArisTeam-V4.5</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
