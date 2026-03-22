@@ -1,5 +1,6 @@
 package me.vennlmao.aristeam;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,17 +16,20 @@ public class InventoryListener implements Listener {
             e.setCancelled(true);
             Player p = (Player) e.getWhoClicked();
             int slot = e.getRawSlot();
+            Team t = plugin.getTeamManager().getTeamByPlayer(p.getUniqueId());
+            if (t == null) return;
+
             if (slot == 11) {
-                Team t = plugin.getTeamManager().getTeamByPlayer(p.getUniqueId());
-                if (t != null) {
-                    t.setPvp(!t.isPvp());
-                    plugin.getTeamManager().openTeamMenu(p);
-                }
+                t.setPvp(!t.isPvp());
+                p.playSound(p.getLocation(), Sound.valueOf(plugin.getConfig().getString("sounds.confirm")), 1f, 1f);
+                plugin.getTeamManager().openMenu(p);
+            } else if (slot == 12) {
+                p.closeInventory();
+                p.performCommand("team home");
+            } else if (slot == 14) {
+                p.closeInventory();
+                p.openInventory(t.getInventory());
             }
-            if (slot == 12) p.performCommand("team home");
-            if (slot == 14) p.performCommand("team ec");
-            if (slot == 15) p.sendMessage("§eDanh sách thành viên đang phát triển!");
-            if (slot != -999) p.closeInventory();
         }
     }
-}
+                            }
