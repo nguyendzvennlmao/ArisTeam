@@ -6,20 +6,20 @@ import org.bukkit.inventory.Inventory;
 import java.util.*;
 
 public class Team {
-    private String name;
-    private UUID owner;
-    private Set<UUID> members;
+    private final String name;
+    private final UUID owner;
+    private final Set<UUID> members = new HashSet<>();
     private Location home;
-    private Inventory inventory;
+    private final Inventory inventory;
     private boolean pvp = false;
 
     public Team(String name, UUID owner) {
         this.name = name;
         this.owner = owner;
-        this.members = new HashSet<>();
         this.members.add(owner);
         this.inventory = Bukkit.createInventory(null, 54, "§8ᴇɴᴅᴇʀᴄʜᴇsᴛ - " + name);
     }
+
     public String getName() { return name; }
     public UUID getOwner() { return owner; }
     public Set<UUID> getMembers() { return members; }
