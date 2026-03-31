@@ -5,6 +5,7 @@ import me.aris.aristeam.manager.MenuManager;
 import me.aris.aristeam.manager.TeamManager;
 import me.aris.aristeam.utils.MessageUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import java.util.*;
@@ -23,6 +24,20 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
         }
 
         switch (args[0].toLowerCase()) {
+            case "create":
+                if (args.length < 2) {
+                    p.sendMessage(ColorUtils.colorize("&#ff0812Vui lòng nhập tên Team: /team create <tên>"));
+                    return true;
+                }
+                if (tm.hasTeam(p)) {
+                    MessageUtils.sendMessage(p, "already-in-team");
+                    return true;
+                }
+                String teamName = args[1];
+                tm.createTeam(p, teamName);
+                MessageUtils.sendMessage(p, "team-created", "%team%", teamName);
+                p.playSound(p.getLocation(), Sound.valueOf(ArisTeams.getInstance().getConfig().getString("sounds.team-create")), 1f, 1f);
+                break;
             case "reload":
                 if (p.hasPermission("aristeams.admin")) {
                     ArisTeams.getInstance().reloadPlugin();
@@ -39,12 +54,17 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
             case "join":
-                if (args.length < 2) { MessageUtils.sendMessage(p, "need-team-name"); return true; }
+                if (args.length < 2) { 
+                    MessageUtils.sendMessage(p, "need-team-name"); 
+                    return true; 
+                }
                 String tName = args[1];
                 if (tm.getInvites(p.getUniqueId()).contains(tName)) {
                     tm.joinTeam(p, tName);
                     MessageUtils.sendMessage(p, "player-joined");
-                } else { MessageUtils.sendMessage(p, "invalid-team"); }
+                } else { 
+                    MessageUtils.sendMessage(p, "invalid-team"); 
+                }
                 break;
             case "disband":
                 if (tm.isOwner(p)) new MenuManager().openConfirm(p, "disband", null);
@@ -63,6 +83,7 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender s, Command c, String l, String[] a) {
         if (a.length == 1) return Arrays.asList("create", "join", "invite", "disband", "leave", "kick", "home", "reload");
         if (a.length == 2 && a[0].equalsIgnoreCase("join")) return ArisTeams.getInstance().getTeamManager().getInvites(((Player)s).getUniqueId());
-        return null;
+        if (a.length == 2 && a[0].equalsIgnoreCase("invite")) return null; 
+        return new ArrayList<>();
     }
-                  }
+                                                 }
