@@ -17,4 +17,4 @@ public class ColorUtils {
         matcher.appendTail(buffer);
         return ChatColor.translateAlternateColorCodes('&', buffer.toString());
     }
-}
+            }
