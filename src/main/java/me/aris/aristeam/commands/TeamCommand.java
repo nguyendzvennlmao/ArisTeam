@@ -48,6 +48,11 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
                     }
                 }
                 break;
+            case "kick":
+                if (args.length >= 2 && tm.isOwner(p)) {
+                    new MenuManager().openConfirm(p, "kick", args[1]);
+                }
+                break;
             case "sethome":
                 if (tm.isOwner(p)) {
                     tm.getTeam(p).home = p.getLocation();
@@ -61,9 +66,6 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
                 break;
             case "ec":
                 if (tm.hasTeam(p)) p.openInventory(tm.getTeam(p).ec);
-                break;
-            case "kick":
-                if (args.length >= 2 && tm.isOwner(p)) new MenuManager().openConfirm(p, "kick", args[1]);
                 break;
             case "disband":
                 if (tm.isOwner(p)) new MenuManager().openConfirm(p, "disband", null);
@@ -81,4 +83,4 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
         if (a.length == 2 && a[0].equalsIgnoreCase("join")) return ArisTeams.getInstance().getTeamManager().getInvites(((Player)s).getUniqueId());
         return new ArrayList<>();
     }
-                    }
+                }
