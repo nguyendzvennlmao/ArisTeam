@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import java.io.File;
 
 public class MenuManager {
@@ -21,34 +22,40 @@ public class MenuManager {
 
     public void openConfirm(Player p, String type, String target) {
         String path = type + "-gui";
-        String title = ColorUtils.colorize(gui.getString(path + ".title").replace("%player%", target != null ? target : ""));
-        Inventory inv = Bukkit.createInventory(null, gui.getInt(path + ".rows", 3) * 9, title);
-
-        inv.setItem(gui.getInt(path + ".items.confirm.slot"), createItem(path + ".items.confirm", null));
-        inv.setItem(gui.getInt(path + ".items.cancel.slot"), createItem(path + ".items.cancel", null));
-        if (gui.contains(path + ".items.info")) {
-            inv.setItem(gui.getInt(path + ".items.info.slot"), createItem(path + ".items.info", target));
-        }
+        String title = ColorUtils.colorize(gui.getString(path + ".title", "Xác nhận"));
+        Inventory inv = Bukkit.createInventory(null, 27, title);
+        inv.setItem(11, createItem(path + ".items.confirm", null));
+        inv.setItem(15, createItem(path + ".items.cancel", null));
+        p.setMetadata("aris_gui_type", new FixedMetadataValue(ArisTeams.getInstance(), type));
+        if (target != null) p.setMetadata("aris_gui_target", new FixedMetadataValue(ArisTeams.getInstance(), target));
         p.openInventory(inv);
     }
 
     public void openMain(Player p) {
-        TeamManager.TeamData td = ArisTeams.getInstance().getTeamManager().getTeam(p);
-        Inventory inv = Bukkit.createInventory(null, 27, ColorUtils.colorize(gui.getString("main-gui.title")));
-        inv.setItem(gui.getInt("main-gui.items.members.slot"), createItem("main-gui.items.members", null));
-        inv.setItem(gui.getInt("main-gui.items.enderchest.slot"), createItem("main-gui.items.enderchest", null));
-        inv.setItem(gui.getInt("main-gui.items.pvp.slot"), createItem("main-gui.items.pvp", td.pvp ? "&aBật" : "&cTắt"));
-        inv.setItem(gui.getInt("main-gui.items.home.slot"), createItem("main-gui.items.home", null));
+        Inventory inv = Bukkit.createInventory(null, 27, ColorUtils.colorize(gui.getString("main-gui.title", "Team Menu")));
+        inv.setItem(10, createItem("main-gui.items.members", null));
+        inv.setItem(13, createItem("main-gui.items.home", null));
+        inv.setItem(16, createItem("main-gui.items.disband", null));
         p.openInventory(inv);
     }
 
     private ItemStack createItem(String path, String rep) {
-        ItemStack i = new ItemStack(Material.valueOf(gui.getString(path + ".material")));
+        String matName = gui.getString(path + ".material", "STONE").toUpperCase();
+        if (matName.equals("BED")) matName = "RED_BED";
+        Material mat;
+        try {
+            mat = Material.valueOf(matName);
+        } catch (Exception e) {
+            mat = Material.BARRIER;
+        }
+        ItemStack i = new ItemStack(mat);
         ItemMeta m = i.getItemMeta();
-        String n = gui.getString(path + ".name");
-        if (rep != null) n = n.replace("%player%", rep).replace("%status%", rep);
-        m.setDisplayName(ColorUtils.colorize(n));
-        i.setItemMeta(m);
+        if (m != null) {
+            String name = gui.getString(path + ".name", "Item");
+            if (rep != null) name = name.replace("%player%", rep);
+            m.setDisplayName(ColorUtils.colorize(name));
+            i.setItemMeta(m);
+        }
         return i;
     }
-                                   }
+    }
