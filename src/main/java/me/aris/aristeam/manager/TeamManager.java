@@ -19,7 +19,9 @@ public class TeamManager {
         TeamData team = teams.get(teamName);
         if (team != null) {
             team.members.add(p.getUniqueId());
-            invites.get(p.getUniqueId()).remove(teamName);
+            if (invites.containsKey(p.getUniqueId())) {
+                invites.get(p.getUniqueId()).remove(teamName);
+            }
         }
     }
 
@@ -27,7 +29,9 @@ public class TeamManager {
         teams.put(name, new TeamData(name, owner.getUniqueId()));
     }
 
-    public void disbandTeam(String teamName) { teams.remove(teamName); }
+    public void disbandTeam(String teamName) {
+        teams.remove(teamName);
+    }
 
     public void leaveTeam(Player p) {
         TeamData team = getTeam(p);
