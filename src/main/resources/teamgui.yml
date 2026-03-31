@@ -1,0 +1,67 @@
+main-gui:
+  title: "&#facc15ᴛᴇᴀᴍ ᴍᴀɪɴ"
+  rows: 3
+  items:
+    members:
+      slot: 11
+      material: PLAYER_HEAD
+      name: "&#facc15Thành viên Team"
+    enderchest:
+      slot: 12
+      material: ENDER_CHEST
+      name: "&#facc15Enderchest Team"
+    pvp:
+      slot: 14
+      material: IRON_SWORD
+      name: "&fTrạng thái PvP: %status%"
+    home:
+      slot: 15
+      material: BED
+      name: "&#facc15Về Nhà Team"
+
+member-gui:
+  title: "&#facc15ᴛᴇᴀᴍ ᴍᴇᴍʙᴇʀs"
+  rows: 6
+
+disband-gui:
+  title: "&#ff0812Xác nhận giải tán Team"
+  rows: 3
+  items:
+    confirm:
+      slot: 15
+      material: LIME_STAINED_GLASS_PANE
+      name: "&aXác nhận giải tán"
+    cancel:
+      slot: 11
+      material: RED_STAINED_GLASS_PANE
+      name: "&cHuỷ bỏ"
+
+kick-gui:
+  title: "&#ff0812Xác nhận đuổi %player%"
+  rows: 3
+  items:
+    confirm:
+      slot: 15
+      material: LIME_STAINED_GLASS_PANE
+      name: "&aXác nhận đuổi"
+    cancel:
+      slot: 11
+      material: RED_STAINED_GLASS_PANE
+      name: "&cHuỷ bỏ"
+    info:
+      slot: 13
+      material: PLAYER_HEAD
+      name: "&#facc15Đối tượng: &f%player%"
+
+leave-gui:
+  title: "&#ff0812Xác nhận rời Team"
+  rows: 3
+  items:
+    confirm:
+      slot: 15
+      material: LIME_STAINED_GLASS_PANE
+      name: "&aXác nhận rời"
+    cancel:
+      slot: 11
+      material: RED_STAINED_GLASS_PANE
+      name: "&cHuỷ bỏ"
