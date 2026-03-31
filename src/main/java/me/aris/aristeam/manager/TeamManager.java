@@ -7,6 +7,9 @@ public class TeamManager {
     private final Map<String, TeamData> teams = new HashMap<>();
     private final Map<UUID, List<String>> invites = new HashMap<>();
 
+    public void loadData() {
+    }
+
     public void addInvite(UUID uuid, String teamName) {
         invites.computeIfAbsent(uuid, k -> new ArrayList<>()).add(teamName);
     }
@@ -54,4 +57,4 @@ public class TeamManager {
         TeamData team = getTeam(p);
         return team != null && team.owner.equals(p.getUniqueId());
     }
-        }
+    }
