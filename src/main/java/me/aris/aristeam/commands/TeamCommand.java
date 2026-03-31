@@ -25,28 +25,28 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
 
         switch (args[0].toLowerCase()) {
             case "create":
-                if (args.length < 2) return true;
-                if (tm.hasTeam(p)) { MessageUtils.sendMessage(p, "already-in-team"); return true; }
-                tm.createTeam(p, args[1]);
-                MessageUtils.sendMessage(p, "team-created");
+                if (args.length >= 2 && !tm.hasTeam(p)) {
+                    tm.createTeam(p, args[1]);
+                    MessageUtils.sendMessage(p, "team-created");
+                }
                 break;
             case "invite":
-                if (args.length < 2) return true;
-                if (!tm.isOwner(p)) { MessageUtils.sendMessage(p, "no-permission"); return true; }
-                Player target = Bukkit.getPlayer(args[1]);
-                if (target != null) {
-                    tm.addInvite(target.getUniqueId(), tm.getTeam(p).name);
-                    MessageUtils.sendMessage(p, "invite-sent", "%player%", target.getName());
-                    MessageUtils.sendMessage(target, "invite-received", "%team%", tm.getTeam(p).name);
+                if (args.length >= 2 && tm.isOwner(p)) {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target != null) {
+                        tm.addInvite(target.getUniqueId(), tm.getTeam(p).name);
+                        MessageUtils.sendMessage(p, "invite-sent");
+                        MessageUtils.sendMessage(target, "invite-received");
+                    }
                 }
                 break;
             case "join":
-                if (args.length < 2) return true;
-                if (tm.hasTeam(p)) { MessageUtils.sendMessage(p, "already-in-team"); return true; }
-                if (tm.getInvites(p.getUniqueId()).contains(args[1])) {
-                    tm.joinTeam(p, args[1]);
-                    MessageUtils.sendMessage(p, "joined-team", "%team%", args[1]);
-                } else { MessageUtils.sendMessage(p, "no-invite"); }
+                if (args.length >= 2 && !tm.hasTeam(p)) {
+                    if (tm.getInvites(p.getUniqueId()).contains(args[1])) {
+                        tm.joinTeam(p, args[1]);
+                        MessageUtils.sendMessage(p, "joined-team");
+                    }
+                }
                 break;
             case "sethome":
                 if (tm.isOwner(p)) {
@@ -68,11 +68,8 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
             case "disband":
                 if (tm.isOwner(p)) new MenuManager().openConfirm(p, "disband", null);
                 break;
-            case "reload":
-                if (p.hasPermission("aristeams.admin")) {
-                    ArisTeams.getInstance().reloadPlugin();
-                    MessageUtils.sendMessage(p, "reload-success");
-                }
+            case "leave":
+                if (tm.hasTeam(p)) new MenuManager().openConfirm(p, "leave", null);
                 break;
         }
         return true;
@@ -80,8 +77,8 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender s, Command c, String l, String[] a) {
-        if (a.length == 1) return Arrays.asList("create", "join", "invite", "disband", "leave", "home", "sethome", "ec", "kick", "reload");
+        if (a.length == 1) return Arrays.asList("create", "join", "invite", "disband", "leave", "home", "sethome", "ec", "kick");
         if (a.length == 2 && a[0].equalsIgnoreCase("join")) return ArisTeams.getInstance().getTeamManager().getInvites(((Player)s).getUniqueId());
         return new ArrayList<>();
     }
-        }
+                    }
