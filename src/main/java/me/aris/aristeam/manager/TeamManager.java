@@ -33,6 +33,12 @@ public class TeamManager {
         teams.remove(teamName);
     }
 
+    public void kickMember(TeamData team, UUID targetUUID) {
+        if (team != null) {
+            team.members.remove(targetUUID);
+        }
+    }
+
     public void leaveTeam(Player p) {
         TeamData team = getTeam(p);
         if (team != null) team.members.remove(p.getUniqueId());
@@ -48,4 +54,4 @@ public class TeamManager {
         TeamData team = getTeam(p);
         return team != null && team.owner.equals(p.getUniqueId());
     }
-}
+        }
