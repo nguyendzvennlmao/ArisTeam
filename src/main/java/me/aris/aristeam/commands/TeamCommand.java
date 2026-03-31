@@ -93,4 +93,4 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
         }
         return new ArrayList<>();
     }
-                                                               }
+                }
