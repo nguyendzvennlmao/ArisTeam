@@ -18,26 +18,39 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
         if (!(s instanceof Player)) return true;
         Player p = (Player) s;
         TeamManager tm = ArisTeams.getInstance().getTeamManager();
-
         if (args.length == 0) {
             if (tm.hasTeam(p)) new MenuManager().openMain(p);
             else MessageUtils.sendMessage(p, "not-in-team");
             return true;
         }
-
         switch (args[0].toLowerCase()) {
             case "create":
-                if (args.length < 2) {
-                    p.sendMessage(ColorUtils.colorize("&#ff0812Vui lòng nhập tên Team: /team create <tên>"));
-                    return true;
-                }
-                if (tm.hasTeam(p)) {
-                    MessageUtils.sendMessage(p, "already-in-team");
-                    return true;
-                }
+                if (args.length < 2) return true;
+                if (tm.hasTeam(p)) { MessageUtils.sendMessage(p, "already-in-team"); return true; }
                 tm.createTeam(p, args[1]);
                 MessageUtils.sendMessage(p, "team-created", "%team%", args[1]);
                 p.playSound(p.getLocation(), Sound.valueOf(ArisTeams.getInstance().getConfig().getString("sounds.team-create")), 1f, 1f);
+                break;
+            case "sethome":
+                if (!tm.hasTeam(p)) { MessageUtils.sendMessage(p, "not-in-team"); return true; }
+                if (!tm.isOwner(p)) { MessageUtils.sendMessage(p, "no-permission"); return true; }
+                tm.getTeam(p).home = p.getLocation();
+                MessageUtils.sendMessage(p, "home-set");
+                break;
+            case "home":
+                if (tm.hasTeam(p) && tm.getTeam(p).home != null) {
+                    TeleportHandler.startTeleport(p, tm.getTeam(p).home);
+                } else if (tm.hasTeam(p)) {
+                    MessageUtils.sendMessage(p, "home-not-set");
+                }
+                break;
+            case "ec":
+                if (tm.hasTeam(p)) p.openInventory(tm.getTeam(p).ec);
+                else MessageUtils.sendMessage(p, "not-in-team");
+                break;
+            case "kick":
+                if (args.length < 2) return true;
+                if (tm.isOwner(p)) new MenuManager().openConfirm(p, "kick", args[1]);
                 break;
             case "invite":
                 if (args.length < 2) return true;
@@ -49,30 +62,17 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
             case "join":
-                if (args.length < 2) {
-                    MessageUtils.sendMessage(p, "need-team-name");
-                    return true;
-                }
+                if (args.length < 2) return true;
                 if (tm.getInvites(p.getUniqueId()).contains(args[1])) {
                     tm.joinTeam(p, args[1]);
                     MessageUtils.sendMessage(p, "player-joined");
-                } else {
-                    MessageUtils.sendMessage(p, "invalid-team");
-                }
+                } else { MessageUtils.sendMessage(p, "invalid-team"); }
                 break;
             case "disband":
                 if (tm.isOwner(p)) new MenuManager().openConfirm(p, "disband", null);
                 break;
-            case "kick":
-                if (args.length > 1 && tm.isOwner(p)) new MenuManager().openConfirm(p, "kick", args[1]);
-                break;
             case "leave":
                 if (tm.hasTeam(p)) new MenuManager().openConfirm(p, "leave", null);
-                break;
-            case "home":
-                if (tm.hasTeam(p) && tm.getTeam(p).home != null) {
-                    TeleportHandler.startTeleport(p, tm.getTeam(p).home);
-                }
                 break;
             case "reload":
                 if (p.hasPermission("aristeams.admin")) {
@@ -86,8 +86,11 @@ public class TeamCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender s, Command c, String l, String[] a) {
-        if (a.length == 1) return Arrays.asList("create", "join", "invite", "disband", "leave", "kick", "home", "reload");
-        if (a.length == 2 && a[0].equalsIgnoreCase("join")) return ArisTeams.getInstance().getTeamManager().getInvites(((Player)s).getUniqueId());
+        if (a.length == 1) return Arrays.asList("create", "join", "invite", "disband", "leave", "home", "sethome", "ec", "kick", "reload");
+        if (a.length == 2) {
+            if (a[0].equalsIgnoreCase("join")) return ArisTeams.getInstance().getTeamManager().getInvites(((Player)s).getUniqueId());
+            if (a[0].equalsIgnoreCase("kick") || a[0].equalsIgnoreCase("invite")) return null;
+        }
         return new ArrayList<>();
     }
-                    }
+                                                               }
