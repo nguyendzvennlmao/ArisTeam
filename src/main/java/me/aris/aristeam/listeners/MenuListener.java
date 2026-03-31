@@ -41,4 +41,4 @@ public class MenuListener implements Listener {
             } else if (e.getRawSlot() == 15) p.closeInventory();
         }
     }
-                    }
+    }
