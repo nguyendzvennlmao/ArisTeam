@@ -38,7 +38,8 @@ public class TeamManager {
         if (td != null) {
             td.members.add(p.getUniqueId());
             playerToTeam.put(p.getUniqueId(), teamName);
-            getInvites(p.getUniqueId()).remove(teamName);
+            List<String> userInvites = pendingInvites.get(p.getUniqueId());
+            if (userInvites != null) userInvites.remove(teamName);
         }
     }
 
@@ -47,7 +48,9 @@ public class TeamManager {
         return n != null ? teams.get(n) : null;
     }
 
-    public boolean hasTeam(Player p) { return playerToTeam.containsKey(p.getUniqueId()); }
+    public boolean hasTeam(Player p) {
+        return playerToTeam.containsKey(p.getUniqueId());
+    }
 
     public boolean isOwner(Player p) {
         TeamData td = getTeam(p);
@@ -64,4 +67,4 @@ public class TeamManager {
 
     public void loadData() {}
     public void saveData() {}
-                             }
+                           }
