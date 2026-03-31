@@ -20,4 +20,4 @@ public class TeamData {
         this.members.add(owner);
         this.ec = Bukkit.createInventory(null, 27, "Team EnderChest");
     }
-  }
+}
