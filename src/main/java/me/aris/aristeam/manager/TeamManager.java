@@ -31,4 +31,25 @@ public class TeamManager {
         String name = playerTeam.get(p.getUniqueId());
         return name != null ? teams.get(name) : null;
     }
-}
+
+    public void kickMember(TeamData team, UUID target) {
+        team.members.remove(target);
+        playerTeam.remove(target);
+    }
+
+    public void leaveTeam(Player p) {
+        TeamData team = getTeam(p);
+        if (team != null) {
+            team.members.remove(p.getUniqueId());
+            playerTeam.remove(p.getUniqueId());
+        }
+    }
+
+    public void disbandTeam(String name) {
+        TeamData team = teams.remove(name);
+        if (team != null) {
+            for (UUID uuid : team.members) playerTeam.remove(uuid);
+            new File(ArisTeams.getInstance().getDataFolder(), "teams/" + name + ".yml").delete();
+        }
+    }
+                     }
