@@ -32,6 +32,15 @@ public class TeamManager {
         return name != null ? teams.get(name) : null;
     }
 
+    public boolean hasTeam(Player p) {
+        return playerTeam.containsKey(p.getUniqueId());
+    }
+
+    public boolean isOwner(Player p) {
+        TeamData team = getTeam(p);
+        return team != null && team.owner.equals(p.getUniqueId());
+    }
+
     public void kickMember(TeamData team, UUID target) {
         team.members.remove(target);
         playerTeam.remove(target);
@@ -52,4 +61,4 @@ public class TeamManager {
             new File(ArisTeams.getInstance().getDataFolder(), "teams/" + name + ".yml").delete();
         }
     }
-                     }
+}
