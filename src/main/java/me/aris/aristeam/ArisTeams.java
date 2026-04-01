@@ -44,4 +44,4 @@ public class ArisTeams extends JavaPlugin {
     public MenuManager getMenuManager() {
         return menuManager;
     }
-}
+    }
