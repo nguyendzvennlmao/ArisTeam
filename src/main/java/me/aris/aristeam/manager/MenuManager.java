@@ -19,9 +19,12 @@ public class MenuManager {
         ConfigurationSection items = config.getConfigurationSection("items");
         for (String key : items.getKeys(false)) {
             String matName = items.getString(key + ".material");
-            Material mat = Material.matchMaterial(matName);
+            if (matName != null && matName.equalsIgnoreCase("BED")) matName = "WHITE_BED";
+            Material mat = Material.matchMaterial(matName != null ? matName : "BARRIER");
             String name = items.getString(key + ".name");
-            if (key.equalsIgnoreCase("pvp")) name = name.replace("%status%", team.pvp ? "&aBật" : "&cTắt");
+            if (key.equalsIgnoreCase("pvp") && team != null) {
+                name = name.replace("%status%", team.pvp ? "&aBật" : "&cTắt");
+            }
             inv.setItem(items.getInt(key + ".slot"), createItem(mat, name));
         }
         p.openInventory(inv);
@@ -33,7 +36,9 @@ public class MenuManager {
         Inventory inv = Bukkit.createInventory(null, config.getInt("rows") * 9, ColorUtils.colorize(title));
         ConfigurationSection items = config.getConfigurationSection("items");
         for (String key : items.getKeys(false)) {
-            inv.setItem(items.getInt(key + ".slot"), createItem(Material.matchMaterial(items.getString(key + ".material")), items.getString(key + ".name")));
+            String matName = items.getString(key + ".material");
+            if (matName != null && matName.equalsIgnoreCase("BED")) matName = "WHITE_BED";
+            inv.setItem(items.getInt(key + ".slot"), createItem(Material.matchMaterial(matName), items.getString(key + ".name").replace("%player%", target != null ? target : "")));
         }
         p.setMetadata("aris_gui_type", new FixedMetadataValue(ArisTeams.getInstance(), type));
         if (target != null) p.setMetadata("aris_gui_target", new FixedMetadataValue(ArisTeams.getInstance(), target));
@@ -49,4 +54,4 @@ public class MenuManager {
         }
         return i;
     }
-}
+            }
