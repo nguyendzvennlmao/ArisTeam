@@ -15,18 +15,15 @@ public class ArisTeams extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        
         saveDefaultConfig();
-        
         this.teamManager = new TeamManager();
         this.menuManager = new MenuManager();
-        
         this.teamManager.loadData();
-        
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new DamageListener(), this);
-        
-        getCommand("team").setExecutor(new me.aris.aristeam.commands.TeamCommand());
+        if (getCommand("team") != null) {
+            getCommand("team").setExecutor(new me.aris.aristeam.commands.TeamCommand());
+        }
     }
 
     @Override
@@ -47,4 +44,4 @@ public class ArisTeams extends JavaPlugin {
     public MenuManager getMenuManager() {
         return menuManager;
     }
-    }
+}
