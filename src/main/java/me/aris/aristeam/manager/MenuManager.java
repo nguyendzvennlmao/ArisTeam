@@ -13,13 +13,12 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class MenuManager {
     public void openMain(Player p) {
-        ConfigurationSection config = ArisTeams.getInstance().getConfigManager().getGuiConfig().getConfigurationSection("main-gui");
+        ConfigurationSection config = ArisTeams.getInstance().getConfig().getConfigurationSection("main-gui");
         TeamData team = ArisTeams.getInstance().getTeamManager().getTeam(p);
         Inventory inv = Bukkit.createInventory(null, config.getInt("rows") * 9, ColorUtils.colorize(config.getString("title")));
         ConfigurationSection items = config.getConfigurationSection("items");
         for (String key : items.getKeys(false)) {
             String matName = items.getString(key + ".material");
-            if (matName.equalsIgnoreCase("BED")) matName = "WHITE_BED";
             Material mat = Material.matchMaterial(matName);
             String name = items.getString(key + ".name");
             if (key.equalsIgnoreCase("pvp")) name = name.replace("%status%", team.pvp ? "&aBật" : "&cTắt");
@@ -29,7 +28,7 @@ public class MenuManager {
     }
 
     public void openConfirm(Player p, String type, String target) {
-        ConfigurationSection config = ArisTeams.getInstance().getConfigManager().getGuiConfig().getConfigurationSection(type + "-gui");
+        ConfigurationSection config = ArisTeams.getInstance().getConfig().getConfigurationSection(type + "-gui");
         String title = config.getString("title").replace("%player%", target != null ? target : "");
         Inventory inv = Bukkit.createInventory(null, config.getInt("rows") * 9, ColorUtils.colorize(title));
         ConfigurationSection items = config.getConfigurationSection("items");
@@ -50,4 +49,4 @@ public class MenuManager {
         }
         return i;
     }
-            }
+}
