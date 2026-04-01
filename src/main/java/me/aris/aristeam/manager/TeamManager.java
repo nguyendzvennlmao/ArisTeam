@@ -1,8 +1,6 @@
 package me.aris.aristeam.manager;
 
 import me.aris.aristeam.ArisTeams;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -38,8 +36,19 @@ public class TeamManager {
         }
     }
 
-    public boolean hasTeam(Player p) {
-        return playerTeam.containsKey(p.getUniqueId());
+    public void createTeam(Player p, String name) {
+        if (playerTeam.containsKey(p.getUniqueId()) || teams.containsKey(name)) return;
+        TeamData team = new TeamData(name, p.getUniqueId());
+        teams.put(name, team);
+        playerTeam.put(p.getUniqueId(), name);
+    }
+
+    public void disbandTeam(String name) {
+        TeamData team = teams.remove(name);
+        if (team != null) {
+            for (UUID uuid : team.members) playerTeam.remove(uuid);
+            new File(ArisTeams.getInstance().getDataFolder(), "teams/" + name + ".yml").delete();
+        }
     }
 
     public TeamData getTeam(Player p) {
@@ -47,38 +56,16 @@ public class TeamManager {
         return name != null ? teams.get(name) : null;
     }
 
-    public void addInvite(UUID uuid, String teamName) {
-        invites.computeIfAbsent(uuid, k -> new HashSet<>()).add(teamName);
+    public boolean hasTeam(Player p) {
+        return playerTeam.containsKey(p.getUniqueId());
     }
 
-    public Set<String> getInvites(UUID uuid) {
-        return invites.getOrDefault(uuid, new HashSet<>());
-    }
-
-    public void joinTeam(Player p, String teamName) {
-        TeamData team = teams.get(teamName);
-        if (team != null) {
-            team.members.add(p.getUniqueId());
-            playerTeam.put(p.getUniqueId(), teamName);
-            invites.getOrDefault(p.getUniqueId(), new HashSet<>()).remove(teamName);
-        }
-    }
-
-    public void leaveTeam(Player p) {
-        TeamData team = getTeam(p);
-        if (team != null) {
-            team.members.remove(p.getUniqueId());
-            playerTeam.remove(p.getUniqueId());
-        }
-    }
-
-    public void kickMember(TeamData team, UUID target) {
-        team.members.remove(target);
-        playerTeam.remove(target);
+    public List<String> getInvites(UUID uuid) {
+        return new ArrayList<>(invites.getOrDefault(uuid, new HashSet<>()));
     }
 
     public boolean isOwner(Player p) {
         TeamData team = getTeam(p);
         return team != null && team.owner.equals(p.getUniqueId());
     }
-                                        }
+                     }
