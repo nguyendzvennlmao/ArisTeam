@@ -13,6 +13,7 @@ public class TeamData {
     public Set<UUID> members = new HashSet<>();
     public Location home;
     public Inventory ec;
+    public boolean pvp = false;
 
     public TeamData(String name, UUID owner) {
         this.name = name;
