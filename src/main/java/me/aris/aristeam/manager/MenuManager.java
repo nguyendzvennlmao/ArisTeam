@@ -19,7 +19,6 @@ public class MenuManager {
         ConfigurationSection items = config.getConfigurationSection("items");
         for (String key : items.getKeys(false)) {
             String matName = items.getString(key + ".material");
-            if (matName != null && matName.equalsIgnoreCase("BED")) matName = "WHITE_BED";
             Material mat = Material.matchMaterial(matName != null ? matName : "BARRIER");
             String name = items.getString(key + ".name");
             if (key.equalsIgnoreCase("pvp") && team != null) {
@@ -37,8 +36,9 @@ public class MenuManager {
         ConfigurationSection items = config.getConfigurationSection("items");
         for (String key : items.getKeys(false)) {
             String matName = items.getString(key + ".material");
-            if (matName != null && matName.equalsIgnoreCase("BED")) matName = "WHITE_BED";
-            inv.setItem(items.getInt(key + ".slot"), createItem(Material.matchMaterial(matName), items.getString(key + ".name").replace("%player%", target != null ? target : "")));
+            Material mat = Material.matchMaterial(matName != null ? matName : "BARRIER");
+            String name = items.getString(key + ".name").replace("%player%", target != null ? target : "");
+            inv.setItem(items.getInt(key + ".slot"), createItem(mat, name));
         }
         p.setMetadata("aris_gui_type", new FixedMetadataValue(ArisTeams.getInstance(), type));
         if (target != null) p.setMetadata("aris_gui_target", new FixedMetadataValue(ArisTeams.getInstance(), target));
@@ -54,4 +54,4 @@ public class MenuManager {
         }
         return i;
     }
-            }
+        }
