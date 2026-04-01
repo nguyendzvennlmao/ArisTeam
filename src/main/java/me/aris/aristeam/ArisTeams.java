@@ -44,4 +44,12 @@ public class ArisTeams extends JavaPlugin {
     public MenuManager getMenuManager() {
         return menuManager;
     }
+
+    public ArisTeams getConfigManager() {
+        return this;
     }
+
+    public org.bukkit.configuration.file.FileConfiguration getGuiConfig() {
+        return getConfig();
+    }
+                }
