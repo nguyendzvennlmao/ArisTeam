@@ -2,7 +2,7 @@ package me.aris.aristeam.manager;
 
 import me.aris.aristeam.ArisTeams;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,6 +12,7 @@ import java.util.*;
 public class TeamManager {
     private final Map<String, TeamData> teams = new HashMap<>();
     private final Map<UUID, String> playerTeam = new HashMap<>();
+    private final Map<UUID, Set<String>> invites = new HashMap<>();
 
     public void loadData() {
         teams.clear();
@@ -26,8 +27,8 @@ public class TeamManager {
             String name = config.getString("name");
             UUID owner = UUID.fromString(config.getString("owner"));
             TeamData team = new TeamData(name, owner);
-            if (config.contains("home")) team.home = config.getLocation("home");
             team.pvp = config.getBoolean("pvp", false);
+            if (config.contains("home")) team.home = config.getLocation("home");
             for (String m : config.getStringList("members")) {
                 UUID mUUID = UUID.fromString(m);
                 team.members.add(mUUID);
@@ -37,20 +38,8 @@ public class TeamManager {
         }
     }
 
-    public void saveData() {
-        File folder = new File(ArisTeams.getInstance().getDataFolder(), "teams");
-        for (TeamData team : teams.values()) {
-            File file = new File(folder, team.name + ".yml");
-            FileConfiguration config = new YamlConfiguration();
-            config.set("name", team.name);
-            config.set("owner", team.owner.toString());
-            config.set("pvp", team.pvp);
-            config.set("home", team.home);
-            List<String> mList = new ArrayList<>();
-            for (UUID uuid : team.members) mList.add(uuid.toString());
-            config.set("members", mList);
-            try { config.save(file); } catch (Exception ignored) {}
-        }
+    public boolean hasTeam(Player p) {
+        return playerTeam.containsKey(p.getUniqueId());
     }
 
     public TeamData getTeam(Player p) {
@@ -58,24 +47,38 @@ public class TeamManager {
         return name != null ? teams.get(name) : null;
     }
 
+    public void addInvite(UUID uuid, String teamName) {
+        invites.computeIfAbsent(uuid, k -> new HashSet<>()).add(teamName);
+    }
+
+    public Set<String> getInvites(UUID uuid) {
+        return invites.getOrDefault(uuid, new HashSet<>());
+    }
+
+    public void joinTeam(Player p, String teamName) {
+        TeamData team = teams.get(teamName);
+        if (team != null) {
+            team.members.add(p.getUniqueId());
+            playerTeam.put(p.getUniqueId(), teamName);
+            invites.getOrDefault(p.getUniqueId(), new HashSet<>()).remove(teamName);
+        }
+    }
+
+    public void leaveTeam(Player p) {
+        TeamData team = getTeam(p);
+        if (team != null) {
+            team.members.remove(p.getUniqueId());
+            playerTeam.remove(p.getUniqueId());
+        }
+    }
+
+    public void kickMember(TeamData team, UUID target) {
+        team.members.remove(target);
+        playerTeam.remove(target);
+    }
+
     public boolean isOwner(Player p) {
         TeamData team = getTeam(p);
         return team != null && team.owner.equals(p.getUniqueId());
     }
-
-    public void createTeam(Player p, String name) {
-        if (playerTeam.containsKey(p.getUniqueId())) return;
-        if (teams.containsKey(name)) return;
-        TeamData team = new TeamData(name, p.getUniqueId());
-        teams.put(name, team);
-        playerTeam.put(p.getUniqueId(), name);
-    }
-
-    public void disbandTeam(String name) {
-        TeamData team = teams.remove(name);
-        if (team != null) {
-            for (UUID uuid : team.members) playerTeam.remove(uuid);
-            new File(ArisTeams.getInstance().getDataFolder(), "teams/" + name + ".yml").delete();
-        }
-    }
-    }
+                                        }
