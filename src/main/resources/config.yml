@@ -1,0 +1,53 @@
+settings:
+  teleport:
+    delay: 5
+    cancel_on_move: true
+    move_tolerance: 0.1
+  
+  actionbar:
+    enabled: true
+    update_interval: 20
+    
+  sounds:
+    enabled: true
+    gui:
+      open: BLOCK_CHEST_OPEN
+      click: UI_BUTTON_CLICK
+      back: UI_BUTTON_CLICK
+      confirm: ENTITY_EXPERIENCE_ORB_PICKUP
+      cancel: ENTITY_ITEM_BREAK
+      error: BLOCK_NOTE_BLOCK_BASS
+    teleport:
+      start: BLOCK_NOTE_BLOCK_PLING
+      countdown: BLOCK_NOTE_BLOCK_HAT
+      success: ENTITY_ENDERMAN_TELEPORT
+      cancel: ENTITY_ENDERMAN_TELEPORT
+    pvp:
+      enable: BLOCK_ANVIL_USE
+      disable: BLOCK_ANVIL_LAND
+    team:
+      create: ENTITY_PLAYER_LEVELUP
+      join: ENTITY_PLAYER_LEVELUP
+      leave: ENTITY_VILLAGER_NO
+      kick: ENTITY_IRON_GOLEM_ATTACK
+      disband: ENTITY_GENERIC_EXPLODE
+      sethome: BLOCK_BELL_USE
+      home: BLOCK_PORTAL_TRAVEL
+  
+  pvp:
+    disable_enderpearl: true
+    status:
+      enabled: "&a&lBAT"
+      disabled: "&c&lTAT"
+    
+  display:
+    show_team_name: true
+    format: "&7[&b%team%&7] &f%player%"
+    colors:
+      owner: "&6"
+      admin: "&b"
+      member: "&7"
+      online: "&a"
+      offline: "&c"
+      team_name: "&b"
+      separator: "&7"
