@@ -228,4 +228,11 @@ public class TeamGUI {
         meta.setOwningPlayer(target);
         meta.setDisplayName(color(headName));
         List<String> coloredLore = new ArrayList<>();
-        for (String line : headLore) coloredL
+        for (String line : headLore) coloredLore.add(color(line));
+        meta.setLore(coloredLore);
+        head.setItemMeta(meta);
+        gui.setItem(guiConfig.getInt(headPath + ".slot"), head);
+        
+        p.openInventory(gui);
+    }
+                        }
