@@ -1,0 +1,118 @@
+gui:
+  main:
+    title: "&8&lQUAN LY TEAM"
+    size: 54
+    items:
+      ec:
+        slot: 11
+        material: ENDER_CHEST
+        name: "&a&lEC TEAM"
+        lore:
+          - "&7Mo kho do team"
+      members:
+        slot: 12
+        material: PLAYER_HEAD
+        name: "&b&lTHANH VIEN"
+        lore:
+          - "&7Xem danh sach thanh vien"
+      pvp:
+        slot: 13
+        material: IRON_SWORD
+        name: "&c&lBAT/TAT PVP"
+        lore:
+          - "&7Trang thai: %pvp_status%"
+          - "&7Nhan de chuyen doi"
+      home:
+        slot: 15
+        material: COMPASS
+        name: "&e&lVE HOME"
+        lore:
+          - "&7Dich chuyen ve nha team"
+      sethome:
+        slot: 14
+        material: BELL
+        name: "&6&lDAT HOME"
+        lore:
+          - "&7Dat nha team tai vi tri hien tai"
+  
+  members:
+    title: "&8&lDANH SACH THANH VIEN"
+    size: 54
+  
+  confirm_create:
+    title: "&8&lXAC NHAN TAO TEAM"
+    size: 27
+    items:
+      confirm:
+        slot: 15
+        material: LIME_WOOL
+        name: "&a&lXAC NHAN"
+        lore:
+          - "&7Tao team voi ten: &f%teamname%"
+      cancel:
+        slot: 11
+        material: RED_WOOL
+        name: "&c&lHUY"
+        lore:
+          - "&7Huy tao team"
+  
+  confirm_leave:
+    title: "&8&lXAC NHAN ROI TEAM"
+    size: 27
+    items:
+      confirm:
+        slot: 15
+        material: LIME_WOOL
+        name: "&a&lXAC NHAN"
+        lore:
+          - "&7Ban se roi team &e%team%"
+          - "&cHanh dong nay khong the hoan tac!"
+      cancel:
+        slot: 11
+        material: RED_WOOL
+        name: "&c&lHUY"
+        lore:
+          - "&7Huy roi team"
+  
+  confirm_disband:
+    title: "&8&lXAC NHAN GIAI TAN TEAM"
+    size: 27
+    items:
+      confirm:
+        slot: 15
+        material: LIME_WOOL
+        name: "&a&lXAC NHAN"
+        lore:
+          - "&c&lXOA TEAM &e%team%"
+          - "&cTat ca thanh vien se bi xoa!"
+          - "&cHanh dong nay khong the hoan tac!"
+      cancel:
+        slot: 11
+        material: RED_WOOL
+        name: "&c&lHUY"
+        lore:
+          - "&7Huy giai tan team"
+  
+  confirm_kick:
+    title: "&8&lXAC NHAN KICK THANH VIEN"
+    size: 27
+    items:
+      confirm:
+        slot: 15
+        material: LIME_WOOL
+        name: "&a&lXAC NHAN"
+        lore:
+          - "&7Kick thanh vien: &f%player%"
+          - "&cHanh dong nay khong the hoan tac!"
+      cancel:
+        slot: 11
+        material: RED_WOOL
+        name: "&c&lHUY"
+        lore:
+          - "&7Huy kick thanh vien"
+      player_head:
+        slot: 13
+        material: PLAYER_HEAD
+        name: "&f%player%"
+        lore:
+          - "&7Thanh vien bi kick"
