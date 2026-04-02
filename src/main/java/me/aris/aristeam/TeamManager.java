@@ -59,8 +59,8 @@ public class TeamManager {
                         Double.parseDouble(homeData[1]),
                         Double.parseDouble(homeData[2]),
                         Double.parseDouble(homeData[3]),
-                        Double.parseDouble(homeData[4]),
-                        Double.parseDouble(homeData[5])
+                        Float.parseFloat(homeData[4]),
+                        Float.parseFloat(homeData[5])
                     ));
                 }
                 
@@ -173,4 +173,4 @@ public class TeamManager {
     public String getTeamName(UUID uuid) { return playerTeam.get(uuid); }
     
     public List<String> getAllTeamNames() { return new ArrayList<>(teams.keySet()); }
-                                         }
+            }
