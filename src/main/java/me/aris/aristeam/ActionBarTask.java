@@ -14,6 +14,8 @@ public class ActionBarTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (!plugin.getConfig().getBoolean("settings.actionbar.enabled")) return;
+        
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
             if (team != null) {
@@ -25,11 +27,9 @@ public class ActionBarTask extends BukkitRunnable {
                     .replace("%pvp_status%", pvpStatus);
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(plugin.getConfigManager().colorize(message)));
             } else {
-                if (plugin.getConfig().getBoolean("settings.actionbar.enabled")) {
-                    String message = plugin.getConfigManager().getMessage("actionbar.no_team");
-                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(plugin.getConfigManager().colorize(message)));
-                }
+                String message = plugin.getConfigManager().getMessage("actionbar.no_team");
+                p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(plugin.getConfigManager().colorize(message)));
             }
         }
     }
-                  }
+                                                       }
