@@ -1,0 +1,90 @@
+messages:
+  create:
+    usage: "&cSu dung: /team create <ten team>"
+    already_in_team: "&cBan da o trong mot team roi!"
+    name_exists: "&cTen team da ton tai!"
+    success: "&aDa tao team &e%team% &athanh cong!"
+    
+  join:
+    usage: "&cSu dung: /team join <ten team>"
+    team_not_found: "&cKhong tim thay team!"
+    already_in_team: "&cBan da o trong mot team roi!"
+    no_invite: "&cBan khong co loi moi vao team nay!"
+    success: "&aDa vao team &e%team%&a!"
+    announce: "&e%player% &ada vao team &e%team%&a!"
+    invite_sent: "&aDa gui loi moi cho &e%player%&a!"
+    invite_received: "&aBan duoc moi vao team &e%team%&a! &7Su dung /team join %team% de vao"
+    
+  deny:
+    no_invite: "&cBan khong co loi moi nao!"
+    success: "&cDa tu choi loi moi vao team &e%team%&c!"
+    
+  leave:
+    no_team: "&cBan khong o trong team nao!"
+    success: "&cDa roi team!"
+    announce: "&e%player% &cda roi team!"
+    
+  home:
+    no_team: "&cBan khong o trong team nao!"
+    not_set: "&cTeam chua dat nha!"
+    success: "&aDa dich chuyen ve nha team!"
+    
+  sethome:
+    no_team: "&cBan khong o trong team nao!"
+    no_permission: "&cBan khong co quyen dat nha team!"
+    success: "&aDa dat nha team tai vi tri cua ban!"
+    
+  chat:
+    no_team: "&cBan khong o trong team nao!"
+    usage: "&cSu dung: /team chat <tin nhan>"
+    format: "&b&l[Team] &f%player%: &7%message%"
+    
+  kick:
+    no_team: "&cBan khong o trong team nao!"
+    usage: "&cSu dung: /team kick <player>"
+    no_permission: "&cBan khong co quyen kick thanh vien!"
+    not_found: "&cKhong tim thay thanh vien!"
+    cannot_kick_yourself: "&cBan khong the kick chinh minh!"
+    success: "&cDa kick &e%player% &ckhoi team!"
+    announce: "&e%player% &cda bi kick khoi team!"
+    
+  disband:
+    no_team: "&cBan khong o trong team nao!"
+    not_owner: "&cChi chu team moi co the giai tan team!"
+    success: "&cDa giai tan team!"
+    announce: "&e%player% &cda giai tan team &e%team%&c!"
+    
+  pvp:
+    no_team: "&cBan khong o trong team nao!"
+    no_permission: "&cBan khong co quyen thay doi che do PVP!"
+    success: "&aDa %state% che do PVP team!"
+    announce: "&e%player% &ada %state% che do PVP team!"
+    disabled_pearl: "&cKhong the dung ender pearl khi PVP dang tat!"
+    
+  ec:
+    no_team: "&cBan khong o trong team nao!"
+    
+  reload:
+    no_permission: "&cBan khong co quyen reload!"
+    success: "&aDa reload cau hinh thanh cong!"
+    
+  teleport:
+    cooldown: "&cHay doi &e%time% &cgiay de dich chuyen tiep!"
+    start: "&aDang chuan bi dich chuyen trong &e%time% &agiay! &7Dung di chuyen de huy"
+    countdown: "&e%time% &7giay..."
+    cancelled: "&cDa huy dich chuyen vi di chuyen!"
+    success: "&aDa dich chuyen thanh cong!"
+    
+  actionbar:
+    team_info: "&b&l%team% &7| &f%online%/%total% &7thanh vien | PVP: %pvp_status%"
+    no_team: "&cBan chua o trong team nao!"
+    
+  join_online: "&a&l+ &e%player% &ada vao game!"
+  leave_offline: "&c&l- &e%player% &cda roi game!"
+  
+  unknown_command: "&cKhong tim thay lenh! Su dung /team de xem danh sach"
+  action_cancelled: "&cDa huy thao tac!"
+  gui:
+    main_title: "&8&lQUAN LY TEAM"
+    members_title: "&8&lDANH SACH THANH VIEN"
+    confirm_title: "&8&lXAC NHAN"
