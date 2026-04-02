@@ -30,16 +30,16 @@ public final class Aristeam extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
         
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
-            new ActionBarTask(this).runTaskTimer(this, 0L, getConfig().getLong("settings.actionbar.update_interval"));
+            new ActionBarTask(this).runTaskTimer(this, 0L, 20L);
         }
         
-        getLogger().info("Aristeam da duoc bat!");
+        getLogger().info("ArisTeams da duoc bat!");
     }
 
     @Override
     public void onDisable() {
         teamManager.saveAllTeams();
-        getLogger().info("Aristeam da duoc tat!");
+        getLogger().info("ArisTeams da duoc tat!");
     }
 
     public static Aristeam getInstance() { return instance; }
@@ -49,4 +49,4 @@ public final class Aristeam extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-      }
+}
