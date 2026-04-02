@@ -1,0 +1,15 @@
+name: Aristeam
+version: 1.0
+main: me.aris.aristeam.Aristeam
+api-version: 1.20
+author: VennLMAO
+folia-supported: true
+commands:
+  team:
+    description: Quan ly team
+    usage: /team <create|join|deny|leave|home|sethome|chat|kick|disband|pvp|ec|reload>
+    aliases: [teams, t]
+permissions:
+  aristeam.reload:
+    description: Cho phep reload plugin
+    default: op
