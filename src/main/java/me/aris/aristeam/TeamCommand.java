@@ -128,6 +128,10 @@ public class TeamCommand implements CommandExecutor {
                 
             case "chat":
             case "c":
+                if (!plugin.getConfig().getBoolean("settings.chat.enabled")) {
+                    p.sendMessage(plugin.getConfigManager().getMessage("chat.disabled"));
+                    return true;
+                }
                 if (!plugin.getTeamManager().hasTeam(p.getUniqueId())) {
                     p.sendMessage(plugin.getConfigManager().getMessage("chat.no_team"));
                     return true;
@@ -278,4 +282,4 @@ public class TeamCommand implements CommandExecutor {
         task.runTaskTimer(plugin, 0L, 20L);
         teleportTasks.put(p, task.getTaskId());
     }
-                             }
+        }
