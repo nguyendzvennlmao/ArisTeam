@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -90,6 +91,24 @@ public class Listeners implements Listener {
     }
     
     @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
+        if (!plugin.getConfig().getBoolean("settings.chat.enabled")) return;
+        
+        Player p = e.getPlayer();
+        Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
+        if (team != null && e.getMessage().startsWith("@")) {
+            e.setCancelled(true);
+            String message = e.getMessage().substring(1);
+            String format = plugin.getConfigManager().getMessage("chat.format")
+                .replace("%player%", p.getName())
+                .replace("%message%", message);
+            for (Player member : team.getOnlineMembers()) {
+                member.sendMessage(format);
+            }
+        }
+    }
+    
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
@@ -121,4 +140,4 @@ public class Listeners implements Listener {
             }
         }
     }
-  }
+                                                   }
