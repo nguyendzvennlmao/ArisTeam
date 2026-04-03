@@ -28,7 +28,8 @@ public class Listeners implements Listener {
             
             switch (e.getSlot()) {
                 case 11:
-                    plugin.getTeamGUI().openMainGUI(p);
+                    plugin.getTeamGUI().openTeamEC(p);
+                    p.closeInventory();
                     break;
                 case 12:
                     plugin.getTeamGUI().openMemberListGUI(p);
@@ -48,7 +49,7 @@ public class Listeners implements Listener {
             }
         }
         
-        else if (title.contains("XAC NHAN")) {
+        else if (title.contains("CONFIRM")) {
             e.setCancelled(true);
             if (e.getCurrentItem() == null) return;
             
@@ -61,7 +62,7 @@ public class Listeners implements Listener {
                 } else {
                     Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
                     if (team != null) {
-                        if (title.contains("GIAI TAN")) {
+                        if (title.contains("DISBAND")) {
                             String teamName = team.getName();
                             for (Player member : team.getOnlineMembers()) {
                                 member.sendMessage(plugin.getConfigManager().getMessage("disband.announce").replace("%player%", p.getName()).replace("%team%", teamName));
@@ -71,11 +72,15 @@ public class Listeners implements Listener {
                         } else if (title.contains("KICK")) {
                             p.performCommand("team kick confirm");
                         } else {
-                            String teamName = team.getName();
-                            plugin.getTeamManager().removeMember(teamName, p.getUniqueId());
-                            p.sendMessage(plugin.getConfigManager().getMessage("leave.success"));
-                            for (Player member : team.getOnlineMembers()) {
-                                member.sendMessage(plugin.getConfigManager().getMessage("leave.announce").replace("%player%", p.getName()));
+                            if (team.getOwner().equals(p.getUniqueId())) {
+                                p.sendMessage(plugin.getConfigManager().getMessage("leave.cannot_leave_when_owner"));
+                            } else {
+                                String teamName = team.getName();
+                                plugin.getTeamManager().removeMember(teamName, p.getUniqueId());
+                                p.sendMessage(plugin.getConfigManager().getMessage("leave.success"));
+                                for (Player member : team.getOnlineMembers()) {
+                                    member.sendMessage(plugin.getConfigManager().getMessage("leave.announce").replace("%player%", p.getName()));
+                                }
                             }
                         }
                     }
@@ -140,4 +145,4 @@ public class Listeners implements Listener {
             }
         }
     }
-            }
+                                          }
