@@ -56,4 +56,4 @@ public final class ArisTeams extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-}
+    }
