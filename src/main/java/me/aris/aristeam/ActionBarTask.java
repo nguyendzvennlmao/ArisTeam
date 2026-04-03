@@ -1,18 +1,16 @@
 package me.aris.aristeam;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class ActionBarTask extends BukkitRunnable {
+public class ActionBarTask {
     private ArisTeams plugin;
 
     public ActionBarTask(ArisTeams plugin) {
         this.plugin = plugin;
     }
 
-    @Override
     public void run() {
         if (!plugin.getConfig().getBoolean("settings.actionbar.enabled")) return;
         
@@ -36,4 +34,4 @@ public class ActionBarTask extends BukkitRunnable {
             }
         }
     }
-}
+                        }
