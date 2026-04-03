@@ -4,15 +4,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ConfigManager {
-    private Aristeam plugin;
+    private ArisTeams plugin;
     private FileConfiguration messages;
     private FileConfiguration gui;
     private File messageFile;
     private File guiFile;
 
-    public ConfigManager(Aristeam plugin) {
+    public ConfigManager(ArisTeams plugin) {
         this.plugin = plugin;
         this.messageFile = new File(plugin.getDataFolder(), "message.yml");
         this.guiFile = new File(plugin.getDataFolder(), "teamgui.yml");
@@ -36,7 +38,17 @@ public class ConfigManager {
     
     public FileConfiguration getGUI() { return gui; }
     
-    public String colorize(String msg) { return ChatColor.translateAlternateColorCodes('&', msg); }
+    public String colorize(String msg) {
+        if (msg == null) return "";
+        Pattern pattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
+        Matcher matcher = pattern.matcher(msg);
+        StringBuffer buffer = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(buffer, net.md_5.bungee.api.ChatColor.of("#" + matcher.group(1)).toString());
+        }
+        matcher.appendTail(buffer);
+        return ChatColor.translateAlternateColorCodes('&', buffer.toString());
+    }
     
     public String getPvpStatusText(boolean enabled) {
         String path = enabled ? "settings.pvp.status.enabled" : "settings.pvp.status.disabled";
@@ -52,4 +64,4 @@ public class ConfigManager {
         String path = online ? "settings.display.colors.online" : "settings.display.colors.offline";
         return colorize(plugin.getConfig().getString(path, online ? "&a" : "&c"));
     }
-          }
+            }
