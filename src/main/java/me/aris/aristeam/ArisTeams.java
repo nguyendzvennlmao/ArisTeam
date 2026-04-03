@@ -15,7 +15,6 @@ public final class ArisTeams extends JavaPlugin {
     private Map<UUID, Long> teleportCooldown = new ConcurrentHashMap<>();
     private Map<UUID, String> pendingInvites = new ConcurrentHashMap<>();
     private Map<UUID, String> pendingJoin = new ConcurrentHashMap<>();
-    private ActionBarTask actionBarTask;
 
     @Override
     public void onEnable() {
@@ -28,7 +27,10 @@ public final class ArisTeams extends JavaPlugin {
         teamManager = new TeamManager(this);
         teamGUI = new TeamGUI(this);
         
-        getCommand("team").setExecutor(new TeamCommand(this));
+        TeamCommand teamCommand = new TeamCommand(this);
+        getCommand("team").setExecutor(teamCommand);
+        getCommand("team").setTabCompleter(teamCommand);
+        
         Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
         
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -39,8 +41,29 @@ public final class ArisTeams extends JavaPlugin {
         }
         
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
-            actionBarTask = new ActionBarTask(this);
-            getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> actionBarTask.run(), 1L, 20L);
+            getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> {
+                if (!getConfig().getBoolean("settings.actionbar.enabled")) return;
+                
+                for (Player p : getServer().getOnlinePlayers()) {
+                    try {
+                        Team team = teamManager.getPlayerTeam(p.getUniqueId());
+                        if (team != null) {
+                            String pvpStatus = configManager.getPvpStatusText(team.isPvpEnabled());
+                            String message = "&b" + team.getName() + " &7| &a" + team.getOnlineCount() + "&7/&c" + team.getMemberCount() + " &7| PVP: " + pvpStatus;
+                            String coloredMessage = configManager.colorize(message);
+                            p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, 
+                                new net.md_5.bungee.api.chat.TextComponent(coloredMessage));
+                        } else {
+                            String message = "&cBan chua o trong team nao!";
+                            String coloredMessage = configManager.colorize(message);
+                            p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, 
+                                new net.md_5.bungee.api.chat.TextComponent(coloredMessage));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 1L, 20L);
         }
         
         getLogger().info("ArisTeams version 1.2 da duoc bat!");
@@ -61,4 +84,4 @@ public final class ArisTeams extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-                     }
+            }
