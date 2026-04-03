@@ -39,7 +39,7 @@ public final class ArisTeams extends JavaPlugin {
         
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
             actionBarTask = new ActionBarTask(this);
-            actionBarTask.runTaskTimer(this, 0L, 20L);
+            getServer().getGlobalRegionScheduler().runAtFixedRate(this, scheduledTask -> actionBarTask.run(), 0L, 20L);
         }
         
         getLogger().info("ArisTeams version 1.2 da duoc bat!");
@@ -47,9 +47,6 @@ public final class ArisTeams extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (actionBarTask != null) {
-            actionBarTask.cancel();
-        }
         if (teamManager != null) {
             teamManager.saveAllTeams();
         }
@@ -63,4 +60,4 @@ public final class ArisTeams extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-}
+            }
