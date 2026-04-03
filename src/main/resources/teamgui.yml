@@ -1,118 +1,118 @@
 gui:
   main:
-    title: "&8&lQUAN LY TEAM"
+    title: "&#888888&lQUAN LY TEAM"
     size: 54
     items:
       ec:
         slot: 11
         material: ENDER_CHEST
-        name: "&a&lEC TEAM"
+        name: "&#55FF55&lEC TEAM"
         lore:
-          - "&7Mo kho do team"
+          - "&#888888Mo kho do team"
       members:
         slot: 12
         material: PLAYER_HEAD
-        name: "&b&lTHANH VIEN"
+        name: "&#00E5FF&lTHANH VIEN"
         lore:
-          - "&7Xem danh sach thanh vien"
+          - "&#888888Xem danh sach thanh vien"
       pvp:
         slot: 13
         material: IRON_SWORD
-        name: "&c&lBAT/TAT PVP"
+        name: "&#FF5555&lBAT/TAT PVP"
         lore:
-          - "&7Trang thai: %pvp_status%"
-          - "&7Nhan de chuyen doi"
+          - "&#888888Trang thai: %pvp_status%"
+          - "&#888888Nhan de chuyen doi"
       home:
         slot: 15
         material: COMPASS
-        name: "&e&lVE HOME"
+        name: "&#FFAA00&lVE HOME"
         lore:
-          - "&7Dich chuyen ve nha team"
+          - "&#888888Dich chuyen ve nha team"
       sethome:
         slot: 14
         material: BELL
-        name: "&6&lDAT HOME"
+        name: "&#FFD700&lDAT HOME"
         lore:
-          - "&7Dat nha team tai vi tri hien tai"
+          - "&#888888Dat nha team tai vi tri hien tai"
   
   members:
-    title: "&8&lDANH SACH THANH VIEN"
+    title: "&#888888&lDANH SACH THANH VIEN"
     size: 54
   
   confirm_create:
-    title: "&8&lXAC NHAN TAO TEAM"
+    title: "&#888888&lXAC NHAN TAO TEAM"
     size: 27
     items:
       confirm:
         slot: 15
         material: LIME_WOOL
-        name: "&a&lXAC NHAN"
+        name: "&#55FF55&lXAC NHAN"
         lore:
-          - "&7Tao team voi ten: &f%teamname%"
+          - "&#888888Tao team voi ten: &#FFAA00%teamname%"
       cancel:
         slot: 11
         material: RED_WOOL
-        name: "&c&lHUY"
+        name: "&#FF5555&lHUY"
         lore:
-          - "&7Huy tao team"
+          - "&#888888Huy tao team"
   
   confirm_leave:
-    title: "&8&lXAC NHAN ROI TEAM"
+    title: "&#888888&lXAC NHAN ROI TEAM"
     size: 27
     items:
       confirm:
         slot: 15
         material: LIME_WOOL
-        name: "&a&lXAC NHAN"
+        name: "&#55FF55&lXAC NHAN"
         lore:
-          - "&7Ban se roi team &e%team%"
-          - "&cHanh dong nay khong the hoan tac!"
+          - "&#888888Ban se roi team &#FFAA00%team%"
+          - "&#FF5555Hanh dong nay khong the hoan tac!"
       cancel:
         slot: 11
         material: RED_WOOL
-        name: "&c&lHUY"
+        name: "&#FF5555&lHUY"
         lore:
-          - "&7Huy roi team"
+          - "&#888888Huy roi team"
   
   confirm_disband:
-    title: "&8&lXAC NHAN GIAI TAN TEAM"
+    title: "&#888888&lXAC NHAN GIAI TAN TEAM"
     size: 27
     items:
       confirm:
         slot: 15
         material: LIME_WOOL
-        name: "&a&lXAC NHAN"
+        name: "&#55FF55&lXAC NHAN"
         lore:
-          - "&c&lXOA TEAM &e%team%"
-          - "&cTat ca thanh vien se bi xoa!"
-          - "&cHanh dong nay khong the hoan tac!"
+          - "&#FF5555&lXOA TEAM &#FFAA00%team%"
+          - "&#FF5555Tat ca thanh vien se bi xoa!"
+          - "&#FF5555Hanh dong nay khong the hoan tac!"
       cancel:
         slot: 11
         material: RED_WOOL
-        name: "&c&lHUY"
+        name: "&#FF5555&lHUY"
         lore:
-          - "&7Huy giai tan team"
+          - "&#888888Huy giai tan team"
   
   confirm_kick:
-    title: "&8&lXAC NHAN KICK THANH VIEN"
+    title: "&#888888&lXAC NHAN KICK THANH VIEN"
     size: 27
     items:
       confirm:
         slot: 15
         material: LIME_WOOL
-        name: "&a&lXAC NHAN"
+        name: "&#55FF55&lXAC NHAN"
         lore:
-          - "&7Kick thanh vien: &f%player%"
-          - "&cHanh dong nay khong the hoan tac!"
+          - "&#888888Kick thanh vien: &#FFAA00%player%"
+          - "&#FF5555Hanh dong nay khong the hoan tac!"
       cancel:
         slot: 11
         material: RED_WOOL
-        name: "&c&lHUY"
+        name: "&#FF5555&lHUY"
         lore:
-          - "&7Huy kick thanh vien"
+          - "&#888888Huy kick thanh vien"
       player_head:
         slot: 13
         material: PLAYER_HEAD
-        name: "&f%player%"
+        name: "&#FFAA00%player%"
         lore:
-          - "&7Thanh vien bi kick"
+          - "&#888888Thanh vien bi kick"
