@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TeamCommand implements CommandExecutor {
     private ArisTeams plugin;
-    private Map<UUID, Integer> teleportTasks = new ConcurrentHashMap<>();
+    private Map<UUID, io.papermc.paper.threadedregions.scheduler.ScheduledTask> teleportTasks = new ConcurrentHashMap<>();
 
     public TeamCommand(ArisTeams plugin) {
         this.plugin = plugin;
@@ -247,9 +247,9 @@ public class TeamCommand implements CommandExecutor {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
         }
         
-        plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
+        io.papermc.paper.threadedregions.scheduler.ScheduledTask task = plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task1 -> {
             if (!p.isOnline()) {
-                task.cancel();
+                task1.cancel();
                 return;
             }
             
@@ -259,7 +259,7 @@ public class TeamCommand implements CommandExecutor {
                     p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 }
                 plugin.getTeleportCooldown().remove(p.getUniqueId());
-                task.cancel();
+                task1.cancel();
                 return;
             }
             
@@ -275,8 +275,11 @@ public class TeamCommand implements CommandExecutor {
                 if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
                     p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 }
-                task.cancel();
+                plugin.getTeleportCooldown().remove(p.getUniqueId());
+                task1.cancel();
             }
-        }, 0L, 20L);
+        }, 1L, 20L);
+        
+        teleportTasks.put(p.getUniqueId(), task);
     }
-                    }
+                                                  }
