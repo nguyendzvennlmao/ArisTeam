@@ -10,9 +10,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class Listeners implements Listener {
-    private Aristeam plugin;
+    private ArisTeams plugin;
 
-    public Listeners(Aristeam plugin) {
+    public Listeners(ArisTeams plugin) {
         this.plugin = plugin;
     }
 
@@ -140,4 +140,4 @@ public class Listeners implements Listener {
             }
         }
     }
-                                                   }
+            }
