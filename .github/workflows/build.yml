@@ -1,4 +1,4 @@
-name: Build Aristeam Plugin
+name: Build ArisTeams Plugin
 
 on:
   push:
@@ -31,8 +31,19 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
     
-    - name: Upload artifact
+    - name: List target directory
+      run: ls -la target/
+    
+    - name: Upload JAR artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Aristeam-Plugin
-        path: target/Aristeam-*.jar
+        name: ArisTeams-Plugin
+        path: target/ArisTeams-*.jar
+        if-no-files-found: error
+    
+    - name: Upload all artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArisTeams-Build
+        path: target/
+        if-no-files-found: warn
