@@ -282,4 +282,4 @@ public class TeamCommand implements CommandExecutor {
         task.runTaskTimer(plugin, 0L, 20L);
         teleportTasks.put(p, task.getTaskId());
     }
-        }
+                                  }
