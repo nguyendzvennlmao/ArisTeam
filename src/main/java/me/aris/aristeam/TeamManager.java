@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class TeamManager {
-    private Aristeam plugin;
+    private ArisTeams plugin;
     private Map<String, Team> teams;
     private Map<UUID, String> playerTeam;
     private File teamsFile;
     private FileConfiguration teamsConfig;
 
-    public TeamManager(Aristeam plugin) {
+    public TeamManager(ArisTeams plugin) {
         this.plugin = plugin;
         this.teams = new HashMap<>();
         this.playerTeam = new HashMap<>();
@@ -173,4 +173,4 @@ public class TeamManager {
     public String getTeamName(UUID uuid) { return playerTeam.get(uuid); }
     
     public List<String> getAllTeamNames() { return new ArrayList<>(teams.keySet()); }
-            }
+    }
