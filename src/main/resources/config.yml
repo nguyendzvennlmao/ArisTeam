@@ -10,6 +10,9 @@ settings:
   actionbar:
     enabled: true
     
+  placeholder:
+    no_team: "&7Khong co team"
+    
   sounds:
     enabled: true
     gui:
@@ -39,17 +42,17 @@ settings:
   pvp:
     disable_enderpearl: true
     status:
-      enabled: "&#4CAF50&lBAT"
-      disabled: "&#F44336&lTAT"
+      enabled: "&a&lBAT"
+      disabled: "&c&lTAT"
     
   display:
     show_team_name: true
     format: "&7[&b%team%&7] &f%player%"
     colors:
-      owner: "&#FFD700"
-      admin: "&#00BFFF"
-      member: "&#AAAAAA"
-      online: "&#4CAF50"
-      offline: "&#F44336"
-      team_name: "&#00E5FF"
-      separator: "&#888888"
+      owner: "&6"
+      admin: "&b"
+      member: "&7"
+      online: "&a"
+      offline: "&c"
+      team_name: "&b"
+      separator: "&7"
