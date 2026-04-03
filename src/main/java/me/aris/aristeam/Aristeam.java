@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public final class Aristeam extends JavaPlugin {
-    private static Aristeam instance;
+public final class ArisTeams extends JavaPlugin {
+    private static ArisTeams instance;
     private TeamManager teamManager;
     private ConfigManager configManager;
     private TeamGUI teamGUI;
@@ -29,11 +29,18 @@ public final class Aristeam extends JavaPlugin {
         getCommand("team").setExecutor(new TeamCommand(this));
         Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
         
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderHook(this).register();
+            getLogger().info("Da hook vao PlaceholderAPI!");
+        } else {
+            getLogger().warning("PlaceholderAPI khong tim thay! Placeholder se khong hoat dong!");
+        }
+        
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
             new ActionBarTask(this).runTaskTimer(this, 0L, 20L);
         }
         
-        getLogger().info("ArisTeams da duoc bat!");
+        getLogger().info("ArisTeams version 1.1 da duoc bat!");
     }
 
     @Override
@@ -42,7 +49,7 @@ public final class Aristeam extends JavaPlugin {
         getLogger().info("ArisTeams da duoc tat!");
     }
 
-    public static Aristeam getInstance() { return instance; }
+    public static ArisTeams getInstance() { return instance; }
     public TeamManager getTeamManager() { return teamManager; }
     public ConfigManager getConfigManager() { return configManager; }
     public TeamGUI getTeamGUI() { return teamGUI; }
