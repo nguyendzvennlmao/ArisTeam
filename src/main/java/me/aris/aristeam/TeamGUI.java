@@ -93,7 +93,7 @@ public class TeamGUI {
             switch (role) {
                 case "OWNER": 
                     roleColor = plugin.getConfigManager().getRoleColor("owner");
-                    roleName = roleColor + "CHU TEAM";
+                    roleName = roleColor + "OWNER";
                     break;
                 case "ADMIN": 
                     roleColor = plugin.getConfigManager().getRoleColor("admin");
@@ -101,7 +101,7 @@ public class TeamGUI {
                     break;
                 default: 
                     roleColor = plugin.getConfigManager().getRoleColor("member");
-                    roleName = roleColor + "THANH VIEN";
+                    roleName = roleColor + "MEMBER";
             }
             
             String statusColor = plugin.getConfigManager().getStatusColor(isOnline);
@@ -196,6 +196,9 @@ public class TeamGUI {
     }
     
     public void openConfirmKickGUI(Player p, Player target) {
+        Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
+        if (team == null) return;
+        
         Inventory gui = Bukkit.createInventory(null, 27, color(guiConfig.getString("gui.confirm_kick.title")));
         playGuiSound(p, "open");
         
@@ -232,4 +235,15 @@ public class TeamGUI {
         
         p.openInventory(gui);
     }
-                                              }
+    
+    public void openTeamEC(Player p) {
+        Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
+        if (team == null) {
+            p.sendMessage(plugin.getConfigManager().getMessage("ec.no_team"));
+            return;
+        }
+        
+        Inventory ec = Bukkit.createInventory(null, 27, color("&8&lTEAM ENDER CHEST"));
+        p.openInventory(ec);
+    }
+                    }
