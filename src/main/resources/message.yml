@@ -1,92 +1,91 @@
 messages:
-  prefix: "&#FF5555[&#FFAA00ArisTeams&#FF5555] &#7"
+  prefix: "&7[&bArisTeams&7] &f"
   
   chat:
-    format: "&#00E5FF[Team] &#FFAA00%player%&#7: &#f%message%"
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    usage: "&#FF5555Su dung: &#FFAA00/team chat <tin nhan>"
-  
-  actionbar:
-    team_info: "&#00E5FF%team% &#7| &#55FF55%online%&#7/&#FF5555%total% &#7| PVP: %pvp_status%"
-    no_team: "&#FF5555Ban chua o trong team nao!"
+    format: "&b[Team] &6%player%&7: &f%message%"
+    no_team: "&cBan khong o trong team nao!"
+    usage: "&cSu dung: &6/team chat <tin nhan>"
+    disabled: "&cChat team dang tat!"
   
   create:
-    usage: "&#FF5555Su dung: &#FFAA00/team create <ten team>"
-    already_in_team: "&#FF5555Ban da o trong mot team roi!"
-    name_exists: "&#FF5555Ten team da ton tai!"
-    success: "&#55FF55Da tao team &#FFAA00%team% &#55FF55thanh cong!"
+    usage: "&cSu dung: &6/team create <ten team>"
+    already_in_team: "&cBan da o trong mot team roi!"
+    name_exists: "&cTen team da ton tai!"
+    success: "&aDa tao team &6%team% &athanh cong!"
     
   join:
-    usage: "&#FF5555Su dung: &#FFAA00/team join <ten team>"
-    team_not_found: "&#FF5555Khong tim thay team!"
-    already_in_team: "&#FF5555Ban da o trong mot team roi!"
-    no_invite: "&#FF5555Ban khong co loi moi vao team nay!"
-    success: "&#55FF55Da vao team &#FFAA00%team%&#55FF55!"
-    announce: "&#FFAA00%player% &#55FF55da vao team &#FFAA00%team%&#55FF55!"
-    invite_sent: "&#55FF55Da gui loi moi cho &#FFAA00%player%&#55FF55!"
-    invite_received: "&#55FF55Ban duoc moi vao team &#FFAA00%team%&#55FF55! &#7Su dung /team join %team% de vao"
+    usage: "&cSu dung: &6/team join <ten team>"
+    team_not_found: "&cKhong tim thay team!"
+    already_in_team: "&cBan da o trong mot team roi!"
+    no_invite: "&cBan khong co loi moi vao team nay!"
+    success: "&aDa vao team &6%team%&a!"
+    announce: "&6%player% &ada vao team &6%team%&a!"
+    invite_sent: "&aDa gui loi moi cho &6%player%&a!"
+    invite_received: "&aBan duoc moi vao team &6%team%&a! &7Su dung /team join %team% de vao"
     
   deny:
-    no_invite: "&#FF5555Ban khong co loi moi nao!"
-    success: "&#FF5555Da tu choi loi moi vao team &#FFAA00%team%&#FF5555!"
+    no_invite: "&cBan khong co loi moi nao!"
+    success: "&cDa tu choi loi moi vao team &6%team%&c!"
     
   leave:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    success: "&#FF5555Da roi team!"
-    announce: "&#FFAA00%player% &#FF5555da roi team!"
+    no_team: "&cBan khong o trong team nao!"
+    success: "&cDa roi team!"
+    announce: "&6%player% &cda roi team!"
+    cannot_leave_when_owner: "&cBan la chu team! Hay giai tan team truoc!"
     
   home:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    not_set: "&#FF5555Team chua dat nha!"
-    success: "&#55FF55Da dich chuyen ve nha team!"
+    no_team: "&cBan khong o trong team nao!"
+    not_set: "&cTeam chua dat nha!"
+    success: "&aDa dich chuyen ve nha team!"
     
   sethome:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    no_permission: "&#FF5555Ban khong co quyen dat nha team!"
-    success: "&#55FF55Da dat nha team tai vi tri cua ban!"
+    no_team: "&cBan khong o trong team nao!"
+    no_permission: "&cBan khong co quyen dat nha team!"
+    success: "&aDa dat nha team tai vi tri cua ban!"
     
   kick:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    usage: "&#FF5555Su dung: &#FFAA00/team kick <player>"
-    no_permission: "&#FF5555Ban khong co quyen kick thanh vien!"
-    not_found: "&#FF5555Khong tim thay thanh vien!"
-    cannot_kick_yourself: "&#FF5555Ban khong the kick chinh minh!"
-    success: "&#FF5555Da kick &#FFAA00%player% &#FF5555khoi team!"
-    announce: "&#FFAA00%player% &#FF5555da bi kick khoi team!"
+    no_team: "&cBan khong o trong team nao!"
+    usage: "&cSu dung: &6/team kick <player>"
+    no_permission: "&cBan khong co quyen kick thanh vien!"
+    not_found: "&cKhong tim thay thanh vien!"
+    cannot_kick_yourself: "&cBan khong the kick chinh minh!"
+    cannot_kick_owner: "&cBan khong the kick chu team!"
+    success: "&cDa kick &6%player% &ckhoi team!"
+    announce: "&6%player% &cda bi kick khoi team!"
     
   disband:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    not_owner: "&#FF5555Chi chu team moi co the giai tan team!"
-    success: "&#FF5555Da giai tan team!"
-    announce: "&#FFAA00%player% &#FF5555da giai tan team &#FFAA00%team%&#FF5555!"
+    no_team: "&cBan khong o trong team nao!"
+    not_owner: "&cChi chu team moi co the giai tan team!"
+    success: "&cDa giai tan team!"
+    announce: "&6%player% &cda giai tan team &6%team%&c!"
     
   pvp:
-    no_team: "&#FF5555Ban khong o trong team nao!"
-    no_permission: "&#FF5555Ban khong co quyen thay doi che do PVP!"
-    success: "&#55FF55Da %state% che do PVP team!"
-    announce: "&#FFAA00%player% &#55FF55da %state% che do PVP team!"
-    disabled_pearl: "&#FF5555Khong the dung ender pearl khi PVP dang tat!"
+    no_team: "&cBan khong o trong team nao!"
+    no_permission: "&cBan khong co quyen thay doi che do PVP!"
+    success: "&aDa %state% che do PVP team!"
+    announce: "&6%player% &ada %state% che do PVP team!"
+    disabled_pearl: "&cKhong the dung ender pearl khi PVP dang tat!"
     
   ec:
-    no_team: "&#FF5555Ban khong o trong team nao!"
+    no_team: "&cBan khong o trong team nao!"
     
   reload:
-    no_permission: "&#FF5555Ban khong co quyen reload!"
-    success: "&#55FF55Da reload cau hinh thanh cong!"
+    no_permission: "&cBan khong co quyen reload!"
+    success: "&aDa reload cau hinh thanh cong!"
     
   teleport:
-    cooldown: "&#FF5555Hay doi &#FFAA00%time% &#FF5555giay de dich chuyen tiep!"
-    start: "&#55FF55Dang chuan bi dich chuyen trong &#FFAA00%time% &#55FF55giay! &#7Dung di chuyen de huy"
-    countdown: "&#FFAA00%time% &#7giay..."
-    cancelled: "&#FF5555Da huy dich chuyen vi di chuyen!"
-    success: "&#55FF55Da dich chuyen thanh cong!"
+    cooldown: "&cHay doi &6%time% &cgiay de dich chuyen tiep!"
+    start: "&aDang chuan bi dich chuyen trong &6%time% &agiay! &7Dung di chuyen de huy"
+    countdown: "&6%time% &7giay..."
+    cancelled: "&cDa huy dich chuyen vi di chuyen!"
+    success: "&aDa dich chuyen thanh cong!"
     
-  join_online: "&#55FF55+ &#FFAA00%player% &#55FF55da vao game!"
-  leave_offline: "&#FF5555- &#FFAA00%player% &#FF5555da roi game!"
+  join_online: "&a+ &6%player% &ada vao game!"
+  leave_offline: "&c- &6%player% &cda roi game!"
   
-  unknown_command: "&#FF5555Khong tim thay lenh! Su dung /team de xem danh sach"
-  action_cancelled: "&#FF5555Da huy thao tac!"
+  unknown_command: "&cKhong tim thay lenh! Su dung /team de xem danh sach"
+  action_cancelled: "&cDa huy thao tac!"
   gui:
-    main_title: "&#888888&lQUAN LY TEAM"
-    members_title: "&#888888&lDANH SACH THANH VIEN"
-    confirm_title: "&#888888&lXAC NHAN"
+    main_title: "&8&lQUAN LY TEAM"
+    members_title: "&8&lDANH SACH THANH VIEN"
+    confirm_title: "&8&lXAC NHAN"
