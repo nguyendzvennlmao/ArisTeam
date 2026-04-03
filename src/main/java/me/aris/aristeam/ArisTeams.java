@@ -2,18 +2,19 @@ package me.aris.aristeam;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class ArisTeams extends JavaPlugin {
     private static ArisTeams instance;
     private TeamManager teamManager;
     private ConfigManager configManager;
     private TeamGUI teamGUI;
-    private Map<UUID, Long> teleportCooldown = new HashMap<>();
-    private Map<UUID, String> pendingInvites = new HashMap<>();
-    private Map<UUID, String> pendingJoin = new HashMap<>();
+    private Map<UUID, Long> teleportCooldown = new ConcurrentHashMap<>();
+    private Map<UUID, String> pendingInvites = new ConcurrentHashMap<>();
+    private Map<UUID, String> pendingJoin = new ConcurrentHashMap<>();
+    private ActionBarTask actionBarTask;
 
     @Override
     public void onEnable() {
@@ -37,15 +38,21 @@ public final class ArisTeams extends JavaPlugin {
         }
         
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
-            new ActionBarTask(this).runTaskTimer(this, 0L, 20L);
+            actionBarTask = new ActionBarTask(this);
+            actionBarTask.runTaskTimer(this, 0L, 20L);
         }
         
-        getLogger().info("ArisTeams version 1.1 da duoc bat!");
+        getLogger().info("ArisTeams version 1.2 da duoc bat!");
     }
 
     @Override
     public void onDisable() {
-        teamManager.saveAllTeams();
+        if (actionBarTask != null) {
+            actionBarTask.cancel();
+        }
+        if (teamManager != null) {
+            teamManager.saveAllTeams();
+        }
         getLogger().info("ArisTeams da duoc tat!");
     }
 
@@ -56,4 +63,4 @@ public final class ArisTeams extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-  }
+}
