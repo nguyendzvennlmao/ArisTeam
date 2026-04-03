@@ -7,10 +7,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TeamCommand implements CommandExecutor {
     private ArisTeams plugin;
-    private java.util.Map<Player, Integer> teleportTasks = new java.util.HashMap<>();
+    private Map<UUID, Integer> teleportTasks = new ConcurrentHashMap<>();
 
     public TeamCommand(ArisTeams plugin) {
         this.plugin = plugin;
@@ -280,6 +283,6 @@ public class TeamCommand implements CommandExecutor {
             }
         };
         task.runTaskTimer(plugin, 0L, 20L);
-        teleportTasks.put(p, task.getTaskId());
+        teleportTasks.put(p.getUniqueId(), task.getTaskId());
     }
-                                  }
+                    }
