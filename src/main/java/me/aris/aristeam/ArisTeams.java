@@ -1,6 +1,7 @@
 package me.aris.aristeam;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Map;
 import java.util.UUID;
@@ -39,7 +40,7 @@ public final class ArisTeams extends JavaPlugin {
         
         if (getConfig().getBoolean("settings.actionbar.enabled")) {
             actionBarTask = new ActionBarTask(this);
-            getServer().getGlobalRegionScheduler().runAtFixedRate(this, scheduledTask -> actionBarTask.run(), 0L, 20L);
+            getServer().getGlobalRegionScheduler().runAtFixedRate(this, task -> actionBarTask.run(), 1L, 20L);
         }
         
         getLogger().info("ArisTeams version 1.2 da duoc bat!");
@@ -60,4 +61,4 @@ public final class ArisTeams extends JavaPlugin {
     public Map<UUID, Long> getTeleportCooldown() { return teleportCooldown; }
     public Map<UUID, String> getPendingInvites() { return pendingInvites; }
     public Map<UUID, String> getPendingJoin() { return pendingJoin; }
-            }
+                     }
