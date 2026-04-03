@@ -6,13 +6,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.util.StringUtil;
+import java.util.*;
 
-public class TeamCommand implements CommandExecutor {
+public class TeamCommand implements CommandExecutor, TabCompleter {
     private ArisTeams plugin;
-    private Map<UUID, io.papermc.paper.threadedregions.scheduler.ScheduledTask> teleportTasks = new ConcurrentHashMap<>();
+    private Map<UUID, io.papermc.paper.threadedregions.scheduler.ScheduledTask> teleportTasks = new HashMap<>();
 
     public TeamCommand(ArisTeams plugin) {
         this.plugin = plugin;
@@ -89,7 +89,7 @@ public class TeamCommand implements CommandExecutor {
                 break;
                 
             case "ec":
-                plugin.getTeamGUI().openMainGUI(p);
+                plugin.getTeamGUI().openTeamEC(p);
                 break;
                 
             case "leave":
@@ -228,6 +228,48 @@ public class TeamCommand implements CommandExecutor {
         return true;
     }
     
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        
+        if (args.length == 1) {
+            List<String> commands = Arrays.asList("create", "join", "deny", "leave", "home", "sethome", "chat", "c", "kick", "disband", "pvp", "ec", "reload");
+            StringUtil.copyPartialMatches(args[0].toLowerCase(), commands, completions);
+        }
+        
+        else if (args.length == 2 && args[0].equalsIgnoreCase("join")) {
+            List<String> teamNames = plugin.getTeamManager().getAllTeamNames();
+            StringUtil.copyPartialMatches(args[1].toLowerCase(), teamNames, completions);
+        }
+        
+        else if (args.length == 2 && args[0].equalsIgnoreCase("kick")) {
+            Player p = (Player) sender;
+            if (plugin.getTeamManager().hasTeam(p.getUniqueId())) {
+                Team team = plugin.getTeamManager().getPlayerTeam(p.getUniqueId());
+                if (team != null && team.isAdmin(p.getUniqueId())) {
+                    List<String> memberNames = new ArrayList<>();
+                    for (UUID uuid : team.getMembers()) {
+                        if (!uuid.equals(p.getUniqueId())) {
+                            Player member = Bukkit.getPlayer(uuid);
+                            if (member != null) {
+                                memberNames.add(member.getName());
+                            }
+                        }
+                    }
+                    StringUtil.copyPartialMatches(args[1].toLowerCase(), memberNames, completions);
+                }
+            }
+        }
+        
+        else if (args.length == 2 && args[0].equalsIgnoreCase("chat")) {
+            List<String> messages = Arrays.asList("<message>");
+            StringUtil.copyPartialMatches(args[1].toLowerCase(), messages, completions);
+        }
+        
+        Collections.sort(completions);
+        return completions;
+    }
+    
     private void startTeleport(Player p, org.bukkit.Location loc) {
         if (plugin.getTeleportCooldown().containsKey(p.getUniqueId())) {
             long remaining = (plugin.getTeleportCooldown().get(p.getUniqueId()) + 5000) - System.currentTimeMillis();
@@ -282,4 +324,4 @@ public class TeamCommand implements CommandExecutor {
         
         teleportTasks.put(p.getUniqueId(), task);
     }
-                                                  }
+                    }
