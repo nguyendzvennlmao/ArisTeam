@@ -6,9 +6,9 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class ActionBarTask extends BukkitRunnable {
-    private Aristeam plugin;
+    private ArisTeams plugin;
 
-    public ActionBarTask(Aristeam plugin) {
+    public ActionBarTask(ArisTeams plugin) {
         this.plugin = plugin;
     }
 
@@ -32,4 +32,4 @@ public class ActionBarTask extends BukkitRunnable {
             }
         }
     }
-                                                       }
+}
