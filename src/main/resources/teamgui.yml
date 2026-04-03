@@ -1,118 +1,118 @@
 gui:
   main:
-    title: "&#888888&lQUAN LY TEAM"
-    size: 54
+    title: "&8&lTEAM MANAGER"
+    size: 27
     items:
       ec:
         slot: 11
         material: ENDER_CHEST
-        name: "&#55FF55&lEC TEAM"
+        name: "&a&lTEAM EC"
         lore:
-          - "&#888888Mo kho do team"
+          - "&7Open team ender chest"
       members:
         slot: 12
         material: PLAYER_HEAD
-        name: "&#00E5FF&lTHANH VIEN"
+        name: "&b&lTEAM MEMBERS"
         lore:
-          - "&#888888Xem danh sach thanh vien"
+          - "&7View all team members"
       pvp:
         slot: 13
         material: IRON_SWORD
-        name: "&#FF5555&lBAT/TAT PVP"
+        name: "&c&lPVP TOGGLE"
         lore:
-          - "&#888888Trang thai: %pvp_status%"
-          - "&#888888Nhan de chuyen doi"
+          - "&7Status: %pvp_status%"
+          - "&7Click to toggle"
       home:
         slot: 15
         material: COMPASS
-        name: "&#FFAA00&lVE HOME"
+        name: "&e&lTEAM HOME"
         lore:
-          - "&#888888Dich chuyen ve nha team"
+          - "&7Teleport to team home"
       sethome:
         slot: 14
         material: BELL
-        name: "&#FFD700&lDAT HOME"
+        name: "&6&lSET HOME"
         lore:
-          - "&#888888Dat nha team tai vi tri hien tai"
+          - "&7Set team home location"
   
   members:
-    title: "&#888888&lDANH SACH THANH VIEN"
+    title: "&8&lTEAM MEMBERS"
     size: 54
   
   confirm_create:
-    title: "&#888888&lXAC NHAN TAO TEAM"
+    title: "&8&lCONFIRM CREATE TEAM"
     size: 27
     items:
       confirm:
         slot: 15
-        material: LIME_WOOL
-        name: "&#55FF55&lXAC NHAN"
+        material: LIME_STAINED_GLASS_PANE
+        name: "&a&lCONFIRM"
         lore:
-          - "&#888888Tao team voi ten: &#FFAA00%teamname%"
+          - "&7Create team: &f%teamname%"
       cancel:
         slot: 11
-        material: RED_WOOL
-        name: "&#FF5555&lHUY"
+        material: RED_STAINED_GLASS_PANE
+        name: "&c&lCANCEL"
         lore:
-          - "&#888888Huy tao team"
+          - "&7Cancel team creation"
   
   confirm_leave:
-    title: "&#888888&lXAC NHAN ROI TEAM"
+    title: "&8&lCONFIRM LEAVE TEAM"
     size: 27
     items:
       confirm:
         slot: 15
-        material: LIME_WOOL
-        name: "&#55FF55&lXAC NHAN"
+        material: LIME_STAINED_GLASS_PANE
+        name: "&a&lCONFIRM"
         lore:
-          - "&#888888Ban se roi team &#FFAA00%team%"
-          - "&#FF5555Hanh dong nay khong the hoan tac!"
+          - "&7You will leave team &e%team%"
+          - "&cThis action cannot be undone!"
       cancel:
         slot: 11
-        material: RED_WOOL
-        name: "&#FF5555&lHUY"
+        material: RED_STAINED_GLASS_PANE
+        name: "&c&lCANCEL"
         lore:
-          - "&#888888Huy roi team"
+          - "&7Cancel leave team"
   
   confirm_disband:
-    title: "&#888888&lXAC NHAN GIAI TAN TEAM"
+    title: "&8&lCONFIRM DISBAND TEAM"
     size: 27
     items:
       confirm:
         slot: 15
-        material: LIME_WOOL
-        name: "&#55FF55&lXAC NHAN"
+        material: LIME_STAINED_GLASS_PANE
+        name: "&a&lCONFIRM"
         lore:
-          - "&#FF5555&lXOA TEAM &#FFAA00%team%"
-          - "&#FF5555Tat ca thanh vien se bi xoa!"
-          - "&#FF5555Hanh dong nay khong the hoan tac!"
+          - "&c&lDELETE TEAM &e%team%"
+          - "&cAll members will be removed!"
+          - "&cThis action cannot be undone!"
       cancel:
         slot: 11
-        material: RED_WOOL
-        name: "&#FF5555&lHUY"
+        material: RED_STAINED_GLASS_PANE
+        name: "&c&lCANCEL"
         lore:
-          - "&#888888Huy giai tan team"
+          - "&7Cancel disband team"
   
   confirm_kick:
-    title: "&#888888&lXAC NHAN KICK THANH VIEN"
+    title: "&8&lCONFIRM KICK MEMBER"
     size: 27
     items:
       confirm:
         slot: 15
-        material: LIME_WOOL
-        name: "&#55FF55&lXAC NHAN"
+        material: LIME_STAINED_GLASS_PANE
+        name: "&a&lCONFIRM"
         lore:
-          - "&#888888Kick thanh vien: &#FFAA00%player%"
-          - "&#FF5555Hanh dong nay khong the hoan tac!"
+          - "&7Kick member: &f%player%"
+          - "&cThis action cannot be undone!"
       cancel:
         slot: 11
-        material: RED_WOOL
-        name: "&#FF5555&lHUY"
+        material: RED_STAINED_GLASS_PANE
+        name: "&c&lCANCEL"
         lore:
-          - "&#888888Huy kick thanh vien"
+          - "&7Cancel kick member"
       player_head:
         slot: 13
         material: PLAYER_HEAD
-        name: "&#FFAA00%player%"
+        name: "&f%player%"
         lore:
-          - "&#888888Thanh vien bi kick"
+          - "&7Member to be kicked"
