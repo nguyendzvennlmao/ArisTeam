@@ -1,9 +1,10 @@
-name: Release Aristeam Plugin
+name: Release ArisTeams Plugin
 
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
   release:
@@ -22,11 +23,21 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
     
+    - name: List target directory
+      run: ls -la target/
+    
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
-        files: target/Aristeam-*.jar
+        files: target/ArisTeams-*.jar
         generate_release_notes: true
         name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
+    
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArisTeams-Release
+        path: target/ArisTeams-*.jar
+        if-no-files-found: error
