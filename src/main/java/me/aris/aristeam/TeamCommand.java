@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -248,41 +247,36 @@ public class TeamCommand implements CommandExecutor {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
         }
         
-        BukkitRunnable task = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!p.isOnline()) {
-                    cancel();
-                    return;
-                }
-                
-                if (p.getLocation().distance(startLoc) > plugin.getConfig().getDouble("settings.teleport.move_tolerance")) {
-                    p.sendMessage(plugin.getConfigManager().getMessage("teleport.cancelled"));
-                    if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
-                        p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                    }
-                    plugin.getTeleportCooldown().remove(p.getUniqueId());
-                    cancel();
-                    return;
-                }
-                
-                if (count[0] > 0) {
-                    p.sendMessage(plugin.getConfigManager().getMessage("teleport.countdown").replace("%time%", String.valueOf(count[0])));
-                    if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
-                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1.0f, 1.0f);
-                    }
-                    count[0]--;
-                } else {
-                    p.teleport(loc);
-                    p.sendMessage(plugin.getConfigManager().getMessage("teleport.success"));
-                    if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
-                        p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                    }
-                    cancel();
-                }
+        plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
+            if (!p.isOnline()) {
+                task.cancel();
+                return;
             }
-        };
-        task.runTaskTimer(plugin, 0L, 20L);
-        teleportTasks.put(p.getUniqueId(), task.getTaskId());
+            
+            if (p.getLocation().distance(startLoc) > plugin.getConfig().getDouble("settings.teleport.move_tolerance")) {
+                p.sendMessage(plugin.getConfigManager().getMessage("teleport.cancelled"));
+                if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
+                    p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                }
+                plugin.getTeleportCooldown().remove(p.getUniqueId());
+                task.cancel();
+                return;
+            }
+            
+            if (count[0] > 0) {
+                p.sendMessage(plugin.getConfigManager().getMessage("teleport.countdown").replace("%time%", String.valueOf(count[0])));
+                if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1.0f, 1.0f);
+                }
+                count[0]--;
+            } else {
+                p.teleport(loc);
+                p.sendMessage(plugin.getConfigManager().getMessage("teleport.success"));
+                if (plugin.getConfig().getBoolean("settings.sounds.enabled")) {
+                    p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                }
+                task.cancel();
+            }
+        }, 0L, 20L);
     }
                     }
