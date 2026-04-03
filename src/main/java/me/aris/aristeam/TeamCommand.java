@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class TeamCommand implements CommandExecutor {
-    private Aristeam plugin;
+    private ArisTeams plugin;
     private java.util.Map<Player, Integer> teleportTasks = new java.util.HashMap<>();
 
-    public TeamCommand(Aristeam plugin) {
+    public TeamCommand(ArisTeams plugin) {
         this.plugin = plugin;
     }
 
